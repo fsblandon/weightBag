@@ -1,0 +1,19 @@
+.back {
+    height: -webkit-fill-available;
+    background: url('../../../assets/images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+.card {
+    margin-top: 50%;
+}
+
+.custom-file-input:lang(es)~.custom-file-label::after {
+    content: "Buscar" !important;
+}
+
+.body {
+    background: #eeeeee;
+}
