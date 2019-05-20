@@ -9,25 +9,25 @@ import { Participante } from 'src/app/models/participante';
 })
 export class IndexServiceService {
 
+  URL = 'https://localhost:5001';
+
   constructor(
-    private httpClient: HttpClient,
-    private headers: HttpHeaders
-  ) { }
+    private httpClient: HttpClient
+  ) {}
 
   postData(
     participante: Participante
   ): Observable<any> {
     const now = new Date();
-    const formData = new FormData();
-    formData.append(participante.archivo.name, participante.archivo);
+    const formData: FormData = new FormData();
+    formData.set('file', participante.archivo);
     console.log(formData);
-    return this.httpClient.post<any>('api/GenerateFile', {
+    return this.httpClient.post<any>(this.URL + '/api/GenerateFile', {
       cedula : participante.cedula,
       fecha_exec : now,
       file : formData
     }, {
-      reportProgress : true,
-      headers: this.headers.append('Content-Type', 'multipart/form-data')
+      reportProgress : true
     });
   }
 }

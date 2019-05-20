@@ -39,7 +39,7 @@ export class IndexComponent implements OnInit {
   addFormBuild() {
     this.dataForm = this.formBuilder.group({
       cedula: null,
-      file: ''
+      file: ['']
     });
   }
 
