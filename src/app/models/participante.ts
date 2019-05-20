@@ -1,4 +1,4 @@
 export class Participante {
     cedula: number;
-    archivo: File;
+    fecha_exec: Date;
 }
