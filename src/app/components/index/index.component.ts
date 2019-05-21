@@ -50,14 +50,13 @@ export class IndexComponent implements OnInit {
 
     const fileInput = <File>event.target.files[0];
     const formData = new FormData();
-    formData.append('file', fileInput, fileInput.name);
+    formData.append('file', fileInput);
 
     if (event.target.files && event.target.files[0]) {
-      //this.participante.archivo = event.target.files[0];
       if (this.participante.cedula !== null && fileInput !== null) {
         if (fileInput.type === 'text/plain') {
           console.log(fileInput);
-          this.service.postData(this.participante, fileInput ).subscribe(
+          this.service.postData(this.participante, formData ).subscribe(
             (data) => {
               console.log(data);
               /* const f = new Blob([data], {type: 'text/plain'});
