@@ -22,11 +22,19 @@
                               class="custom-file-input"  
                               id="inputGroupFile01" 
                               formControlName="file"
-                              (change)="addFile($event)">
+                              (change)="addInput($event)">
                       <label class="custom-file-label" for="inputGroupFile01">Selecciona archivo</label>
                     </div>
                 </div>
-                <span [hidden]="fileExist">Input: {{fileN}}</span>
+                <span style="font-size: smaller"
+                      [hidden]="fileExist">
+                      File: {{fileN}}
+                </span><br [hidden]="fileExist"><br [hidden]="fileExist">
+                <button   type="button" 
+                          class="btn btn-primary btn-lg btn-block" 
+                          (click)="addFile()">
+                          Generar
+                </button>
             </div>
           </form>
         </div>
