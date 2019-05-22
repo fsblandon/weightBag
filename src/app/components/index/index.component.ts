@@ -66,17 +66,18 @@ export class IndexComponent implements OnInit {
               console.log(data);
               if (data !== null) {
                 const name = 'Lazy_loading_output.txt';
-                const url = URL.createObjectURL(data);
-                const anchor = document.createElement('a');
-                anchor.download = name;
-                anchor.href = url;
+                const f = new Blob([data], {type: 'text/plain'});
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(f);
+                link.download = name;
+                link.click();
 
-                document.body.appendChild(anchor);
-                anchor.click();
-                setTimeout(() => {
-                  document.body.removeChild(anchor);
-                  URL.revokeObjectURL(url);
-                }, 300);
+                /* var blob = new Blob([byte], {type: "application/pdf"});
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                var fileName = reportName;
+                link.download = fileName;
+                link.click(); */
               } else {
                 console.log('Error in file input');
               }

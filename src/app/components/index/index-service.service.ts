@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Participante } from 'src/app/models/participante';
 
 @Injectable({
@@ -17,10 +17,12 @@ export class IndexServiceService {
     participante: Participante,
     fileInput: FormData
   ) {
+    const headers = new HttpHeaders('Access-Control-Allow-Methods", "GET, POST, DELETE, PUT');
     return this.httpClient.post(this.URL + 'api/Participante/generateFile/?cedula=' + participante.cedula,
     fileInput,
     {
-      responseType: 'blob'
+      headers: headers,
+      responseType: 'arraybuffer'
     });
   }
 }
