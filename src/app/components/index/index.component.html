@@ -3,7 +3,10 @@
     <div class="col-md-4 mx-auto">
       <div class="card">
         <div class="card-body body">
-          <form [formGroup]="dataForm">
+          <ngx-spinner></ngx-spinner>
+          <form [formGroup]="dataForm" 
+                (ngSubmit)="addFile()"
+                novalidate>
             <div class="form-group">
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -11,7 +14,7 @@
                 </div>
                 <input  type="number" 
                         class="form-control" 
-                        placeholder="Digite la cédula" 
+                        placeholder="Digite la cédula"
                         formControlName="cedula">
               </div>
             </div>
@@ -19,7 +22,7 @@
                 <div class="input-group mb-3">
                     <div class="custom-file">
                       <input  type="file" 
-                              class="custom-file-input"  
+                              class="custom-file-input form-control"  
                               id="inputGroupFile01" 
                               formControlName="file"
                               (change)="addInput($event)">
@@ -28,11 +31,11 @@
                 </div>
                 <span style="font-size: smaller"
                       [hidden]="fileExist">
-                      File: {{fileN}}
+                      File: {{participante.fileN}}
                 </span><br [hidden]="fileExist"><br [hidden]="fileExist">
-                <button   type="button" 
+                <button   type="submit" 
                           class="btn btn-primary btn-lg btn-block" 
-                          (click)="addFile()">
+                          [disabled]="formValid">
                           Generar
                 </button>
             </div>

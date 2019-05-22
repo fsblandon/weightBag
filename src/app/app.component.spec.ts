@@ -1,27 +1,68 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { IndexComponent } from './components/index/index.component';
+import { By } from '@angular/platform-browser';
+import { IndexServiceService } from './components/index/index-service.service';
+import { providerDef } from '@angular/core/src/view';
+import { ReflectiveInjector } from '@angular/core';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { Participante } from './models/participante';
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        IndexComponent
       ],
+      providers: [
+        IndexServiceService
+      ],
+      imports: [
+        HttpClientTestingModule,
+        HttpTestingController
+      ]
     }).compileComponents();
   }));
-  it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+  describe('Index Service', () => {
+    let indexService: IndexServiceService;
+    const participante: Participante = new Participante();
+    const fileInput: FormData = new FormData();
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [HttpClientTestingModule],
+        providers: [indexService]
+      });
+    });
+    it('Should be created', () => {
+      indexService = TestBed.get(indexService);
+      expect(indexService).toBeTruthy();
+    });
+    it('Should have getdata', () => {
+      indexService = TestBed.get(indexService);
+      expect(indexService.postData(participante, fileInput)).toBeTruthy();
+    });
+  });
+  it('Form should be Invalid', async(() => {
+    const fixture = TestBed.createComponent(IndexComponent);
+    const index = fixture.debugElement.componentInstance;
+    index.dataForm.controls['cedula'].setValue(null);
+    index.dataForm.controls['file'].setValue('');
+    expect(index.dataForm.valid).toBeFalsy();
   }));
-  it(`should have as title 'weightbag'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('weightbag');
+  it('Form should be Valid', async(() => {
+    const fixture = TestBed.createComponent(IndexComponent);
+    const index = fixture.debugElement.componentInstance;
+    index.dataForm.controls['cedula'].setValue(123123);
+    index.dataForm.controls['file'].setValue('c:/input');
+    expect(index.dataForm.valid).toBeTruthy();
   }));
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to weightbag!');
+  it('Should call the addFile method', async(() => {
+    const fixture = TestBed.createComponent(IndexComponent);
+    const index = fixture.debugElement.componentInstance;
+    spyOn(index, 'addFile');
+    const m = fixture.debugElement.query(By.css('button')).nativeElement;
+    m.click();
+    expect(index.addFile).toHaveBeenCalledTimes(0);
   }));
 });
