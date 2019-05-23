@@ -3,8 +3,6 @@ import { AppComponent } from './app.component';
 import { IndexComponent } from './components/index/index.component';
 import { By } from '@angular/platform-browser';
 import { IndexServiceService } from './components/index/index-service.service';
-import { providerDef } from '@angular/core/src/view';
-import { ReflectiveInjector } from '@angular/core';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Participante } from './models/participante';
 
